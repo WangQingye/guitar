@@ -8,7 +8,10 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@vue/composition-api": "^0.5.0",
     "core-js": "^3.6.4",
+    "element-ui": "^2.13.0",
+    "vant": "^2.6.3",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.2",
     "vue-property-decorator": "^8.3.0",
@@ -26,6 +29,7 @@
     "@vue/cli-service": "~4.2.0",
     "@vue/eslint-config-prettier": "^6.0.0",
     "@vue/eslint-config-typescript": "^5.0.1",
+    "babel-plugin-import": "^1.13.0",
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-vue": "^6.1.2",
@@ -50,7 +54,16 @@
     "parserOptions": {
       "ecmaVersion": 2020
     },
-    "rules": {}
+    "rules": {
+      "semi": [
+        0
+      ],
+      "quotes": [
+        1,
+        "single"
+      ],
+      "prettier/prettier": "off"
+    }
   },
   "browserslist": [
     "> 1%",
