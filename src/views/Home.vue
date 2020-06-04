@@ -5,8 +5,9 @@
       <span class="title-text">{{state.testNum}}</span>
       <span class="title-text">清野吉他铺</span>
     </p>
+    <Search class="search-input" v-model="state.searchValue" placeholder="请输入搜索关键词" />
     <ul class="list-ul">
-      <li class="list-li" v-for="(item,i) in state.list" :key="i" @click="goImg(item)">
+      <li class="list-li" v-for="(item,i) in state.curList" :key="i" @click="goImg(item)">
         <p class="list-p">{{item}}</p>
       </li>
     </ul>
@@ -15,19 +16,30 @@
 
 <script>
 // @ is an alias to /src
-import { Icon } from 'vant'
-import { reactive, onMounted } from '@vue/composition-api'
+import { Icon, Search } from 'vant'
+import { reactive, onMounted, watch } from '@vue/composition-api'
 import router from '@/router'
 import guitars from '@/guitar.json'
 export default {
   name: 'Home',
   components: {
     Icon,
+    Search
   },
   setup() {
     const state = reactive({
       list: [],
+      curList: [], // 用于展示搜索
+      searchValue: ''
     })
+    watch(
+      () => state.searchValue,
+      (search) => {
+        state.curList = state.list.filter(key => {
+          return key.indexOf(search) !== -1
+        })
+      }
+    )
     function goImg(item) {
       router.push({ path: `/about/${item}`})
     }
@@ -35,6 +47,7 @@ export default {
       for (const key in guitars) {
         state.list.push(key)
       }
+      state.curList = state.list
     })
     return { state, goImg }
   },
@@ -74,5 +87,9 @@ export default {
       white-space: nowrap;
     }
   }
+}
+.search-input {
+  background-color: transparent;
+  margin-top: 20px;
 }
 </style>

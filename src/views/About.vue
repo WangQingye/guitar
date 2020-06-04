@@ -24,7 +24,7 @@ export default {
     })
     onMounted(() => {
       state.title = context.root.$route.params.keyName
-      state.urls = guitars[state.title].urls
+      state.urls = guitars[state.title]
     })
     return { state }
   },

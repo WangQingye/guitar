@@ -1,9 +1,8 @@
 /* eslint-disable */
-const {
-  exec
-} = require('child_process');
-const ghpages = require('gh-pages');
-const fs = require('fs');
+const { exec } = require('child_process')
+const ghpages = require('gh-pages')
+const fs = require('fs')
+readGuitars()
 exec('npm run build', (error, stdout, stderr) => {
   if (error) {
     return;
@@ -29,4 +28,22 @@ function delDir(path){
       });
       fs.rmdirSync(path);
   }
+}
+function readGuitars() {
+  const guitars = []
+  const files = fs.readdirSync('./public/imgs')
+  files.forEach((file, index) => {
+    let curPath = './public/imgs/' + file
+    // 读取每一首歌曲文件夹下面的图片
+    if (fs.statSync(curPath).isDirectory()) {
+      const imgs = fs.readdirSync(curPath)
+      guitars.push({
+        [file]: imgs.map(img => {
+          return `/guitar/imgs/${file}/${img}`
+        })
+      })
+    }
+  })
+  const jsonText = JSON.stringify(guitars).replace(/\{/g, '').replace(/\}/g, '').replace(/\[/, '{').replace(/\]$/, '}')
+  fs.writeFileSync('./src/guitar.json', jsonText)
 }
