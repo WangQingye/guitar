@@ -73,9 +73,10 @@ export default {
   justify-content: space-around;
   flex-wrap: wrap;
   padding: 0 10px;
+  width: 100%;
   .list-li {
     margin-top: 20px;
-    width: 120px;
+    font-size: 12px;
     background: white;
     border-radius: 10px;
     height: 20px;
