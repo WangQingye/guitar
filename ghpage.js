@@ -5,6 +5,7 @@ const fs = require('fs')
 readGuitars()
 exec('npm run build', (error, stdout, stderr) => {
   if (error) {
+    console.log(error)
     return;
   }
   console.log('dist ok');

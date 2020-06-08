@@ -9,7 +9,7 @@
     <p style="opacity: 0.9;color:rgb(255, 104, 107);text-indent: 24px; font-size:12px; text-align: left;margin-bottom:5px">网站吉他谱有横屏竖屏，建议开启手机的屏幕旋转；</p>
     <p style="opacity: 0.9;color:rgb(255, 104, 107);text-indent: 24px; font-size:12px; text-align: left">点击吉他谱右上方的收藏按钮可放入个人收藏夹方便下次查看。</p>
     <Divider content-position="left" :style="{ color: '#1989fa', borderColor: '#1989fa'}">我的收藏</Divider>
-    <p style="font-size:12px">暂无收藏</p>
+    <p style="font-size:12px" v-if="!state.collection.length">暂无收藏</p>
     <ul class="list-ul">
       <li class="list-li" v-for="(item,i) in state.collection" :key="i" @click="goImg(item)">
         <p class="list-p">{{item}}</p>

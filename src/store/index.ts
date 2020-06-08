@@ -23,11 +23,8 @@ export default new Vuex.Store({
   },
   actions: {
     getCollection( context ) {
-      console.log(111)
       const collection = JSON.parse(localStorage.getItem('GUITAR_COLLCTION'))
-      if (!collection) {
-        context.commit('saveCollection', [])
-      }
+      context.commit('saveCollection', collection || [])
     }
   },
   modules: {}

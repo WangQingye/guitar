@@ -3,16 +3,6 @@
     <router-view />
   </div>
 </template>
-<script>
-import { onMounted } from '@vue/composition-api'
-export default {
-  setup(props, context) {
-    onMounted(() => {
-      context.root.$store.dispatch('getCollection')
-    })
-  }
-}
-</script>
 <style lang="scss">
 body {
   background: #dfdfdf56;
