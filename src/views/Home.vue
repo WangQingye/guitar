@@ -6,6 +6,16 @@
       <span class="title-text">清野吉他铺</span>
     </p>
     <Search class="search-input" v-model="state.searchValue" placeholder="请输入搜索关键词" />
+    <p style="opacity: 0.9;color:rgb(255, 104, 107);text-indent: 24px; font-size:12px; text-align: left;margin-bottom:5px">网站吉他谱有横屏竖屏，建议开启手机的屏幕旋转；</p>
+    <p style="opacity: 0.9;color:rgb(255, 104, 107);text-indent: 24px; font-size:12px; text-align: left">点击吉他谱右上方的收藏按钮可放入个人收藏夹方便下次查看。</p>
+    <Divider content-position="left" :style="{ color: '#1989fa', borderColor: '#1989fa'}">我的收藏</Divider>
+    <p style="font-size:12px">暂无收藏</p>
+    <ul class="list-ul">
+      <li class="list-li" v-for="(item,i) in state.collection" :key="i" @click="goImg(item)">
+        <p class="list-p">{{item}}</p>
+      </li>
+    </ul>
+    <Divider content-position="left" :style="{ color: '#1989fa', borderColor: '#1989fa'}">全部歌曲</Divider>
     <ul class="list-ul">
       <li class="list-li" v-for="(item,i) in state.curList" :key="i" @click="goImg(item)">
         <p class="list-p">{{item}}</p>
@@ -16,7 +26,7 @@
 
 <script>
 // @ is an alias to /src
-import { Icon, Search } from 'vant'
+import { Icon, Search, Divider } from 'vant'
 import { reactive, onMounted, watch } from '@vue/composition-api'
 import router from '@/router'
 import guitars from '@/guitar.json'
@@ -24,13 +34,15 @@ export default {
   name: 'Home',
   components: {
     Icon,
-    Search
+    Search,
+    Divider
   },
-  setup() {
+  setup(props, context) {
     const state = reactive({
       list: [],
       curList: [], // 用于展示搜索
-      searchValue: ''
+      searchValue: '',
+      collection: context.root.$store.state.collection
     })
     watch(
       () => state.searchValue,
@@ -73,9 +85,8 @@ export default {
   justify-content: space-around;
   flex-wrap: wrap;
   padding: 0 10px;
-  width: 100%;
   .list-li {
-    margin-top: 20px;
+    margin-bottom: 20px;
     font-size: 12px;
     background: white;
     border-radius: 10px;

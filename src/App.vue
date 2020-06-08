@@ -3,7 +3,16 @@
     <router-view />
   </div>
 </template>
-
+<script>
+import { onMounted } from '@vue/composition-api'
+export default {
+  setup(props, context) {
+    onMounted(() => {
+      context.root.$store.dispatch('getCollection')
+    })
+  }
+}
+</script>
 <style lang="scss">
 body {
   background: #dfdfdf56;
@@ -18,18 +27,5 @@ body {
   color: #2c3e50;
   width: 100vw;
   height: 100vh;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
 }
 </style>
