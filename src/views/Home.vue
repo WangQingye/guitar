@@ -29,6 +29,7 @@
 import { Icon, Search, Divider } from 'vant'
 import { reactive, onMounted, watch } from '@vue/composition-api'
 import router from '@/router'
+import useStore from '@/store/myStore'
 import guitars from '@/guitar.json'
 export default {
   name: 'Home',
@@ -37,12 +38,13 @@ export default {
     Search,
     Divider
   },
-  setup(props, context) {
+  setup() {
+    const [collectionRef, commit] = useStore('collection')
     const state = reactive({
       list: [],
       curList: [], // 用于展示搜索
       searchValue: '',
-      collection: context.root.$store.state.collection
+      collection: []
     })
     watch(
       () => state.searchValue,
@@ -60,6 +62,11 @@ export default {
         state.list.push(key)
       }
       state.curList = state.list
+      // if (!collectionRef.value) {
+      //   const collection = JSON.parse(localStorage.getItem('GUITAR_COLLCTION'))
+      //   commit('collection', collection || [])
+      // }
+      state.collection = collectionRef
     })
     return { state, goImg }
   },

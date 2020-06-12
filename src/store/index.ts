@@ -13,7 +13,7 @@ export default new Vuex.Store({
       localStorage.setItem('GUITAR_COLLCTION', JSON.stringify(state.collection))
     },
     addCollection( state, item) {
-      state.collection.push(item)
+      console.log(state.collection)
       localStorage.setItem('GUITAR_COLLCTION', JSON.stringify(state.collection))
     },
     deleteCollection( state, item) {

@@ -12,6 +12,7 @@
 <script lang="ts">
 import { reactive, onMounted } from '@vue/composition-api'
 import { Swipe, SwipeItem, Icon } from 'vant'
+import useStore from '@/store/myStore'
 import guitars from '@/guitar.json'
 export default {
   components: {
@@ -20,6 +21,7 @@ export default {
     Icon
   },
   setup(props, context) {
+    const [collectionRef,commit] = useStore('collection')
     const state = reactive({
       title: '',
       urls: [],
@@ -28,14 +30,24 @@ export default {
     onMounted(() => {
       state.title = context.root.$route.params.keyName
       state.urls = guitars[state.title]
-      state.isCollected = context.root.$store.state.collection.indexOf(state.title) !== -1
+      state.isCollected = collectionRef.value.indexOf(state.title) !== -1
     })
+    // const clickCollect = () => {
+    //   let aciton = 'addCollection'
+    //   if (state.isCollected) {
+    //     aciton = 'deleteCollection'
+    //   }
+    //   context.root.$store.commit(aciton, state.title)
+    //   state.isCollected = !state.isCollected
+    // }
     const clickCollect = () => {
-      let aciton = 'addCollection'
       if (state.isCollected) {
-        aciton = 'deleteCollection'
+        collectionRef.value.splice(collectionRef.value.indexOf(state.title), 1)
+      } else {
+        collectionRef.value.push(state.title)
       }
-      context.root.$store.commit(aciton, state.title)
+      console.log(collectionRef.value)
+      commit('collection', collectionRef.value)
       state.isCollected = !state.isCollected
     }
     return { state, clickCollect }
